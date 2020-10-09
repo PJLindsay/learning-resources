@@ -1,5 +1,5 @@
 <template>
-  <button :type="type" :class="mode">
+  <button :class="mode">
     <!-- can pass in text or icon to slot -->
     <slot></slot>
   </button>
@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  props: ['type', 'mode']
+  props: ['mode']
 }
 </script>
 <style scoped>
