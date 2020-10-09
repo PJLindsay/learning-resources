@@ -11,7 +11,9 @@
     >Add Resource</base-button>
   </base-card>
 
-  <component :is="selectedTab"></component>
+  <keep-alive>
+    <component :is="selectedTab"></component>
+  </keep-alive>
 </template>
 
 <script>
@@ -46,7 +48,8 @@ components: {
   },
   provide () {
     return {
-      resources: this.storedResources
+      resources: this.storedResources,
+      addResource: this.addResource // point to method
     }
   },
   computed: {
@@ -58,6 +61,16 @@ components: {
     }
   },
   methods: {
+    addResource(title, description, url) {
+      const newResource = {
+        id: new Date().toISOString(),
+        title: title,
+        description: description,
+        link: url
+      }
+      // put newest item at TOP of list with unshift (instead of push)
+      this.storedResources.unshift(newResource)
+    },
     setSelectedTab(tab) {
       this.selectedTab = tab
     }
