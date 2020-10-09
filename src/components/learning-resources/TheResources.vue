@@ -49,7 +49,8 @@ components: {
   provide () {
     return {
       resources: this.storedResources,
-      addResource: this.addResource // point to method
+      addResource: this.addResource, // point to method
+      deleteResource: this.removeResource // point to remove method
     }
   },
   computed: {
@@ -70,6 +71,10 @@ components: {
       }
       // put newest item at TOP of list with unshift (instead of push)
       this.storedResources.unshift(newResource)
+    },
+    removeResource(id) {
+      const index = this.storedResources.findIndex(res => res.id === id)
+      this.storedResources.splice(index, 1) // manipulate original array to make it reactive
     },
     setSelectedTab(tab) {
       this.selectedTab = tab
